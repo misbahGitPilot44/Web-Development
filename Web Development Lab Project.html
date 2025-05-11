@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://127.0.0.1:5500/Web_Dev%20Assignment%20(lab%20work).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Design Lab</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f1f1;
+    }
+
+    .container {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      position: relative; /* For positioning the divider */
+      border: 20px solid black; /* Added outer black border */
+    }
+
+    /* Divider between columns */
+    .container::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      bottom: 20px;
+      width: 20px; /* Increased thickness for a stronger divider */
+      background-color: black; /* Changed to black to match outer borders */
+      transform: translateX(-50%);
+    }
+
+    .column {
+      flex: 1;
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+
+    .column h1 {
+      text-align: center; /* Center-align headings */
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: bold; /* Bold the headings */
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+
+    .box input, .box button, .box select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+
+    .box button {
+      background: dodgerblue;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .box button:hover {
+      background: deepskyblue;
+    }
+
+    .slider {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .color-value {
+      font-weight: bold;
+    }
+
+    #colorBox {
+      width: 100%;
+      height: 100px;
+      border: 2px solid #000;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+
+    /* Styles for calculator box */
+    .calculator-box {
+      text-align: center;
+    }
+    .calculator-box input, .calculator-box select {
+      width: 100%;
+    }
+    .calculator-box button {
+      width: auto;
+      margin: 5px;
+    }
+    #calculatorOutput {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* Styles for profile form */
+    .profile-box {
+      text-align: center;
+    }
+    .profile-box label {
+      display: block;
+      margin-top: 10px;
+      text-align: left;
+    }
+    #profileOutput {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    /* Styles for light bulb box */
+    .bulb-box {
+      text-align: center;
+    }
+    .bulb-box img {
+      width: 100px;
+      margin: 10px auto;
+      display: block;
+    }
+    .bulb-box button {
+      width: auto;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* Styles for multiplication table box */
+    .table-box {
+      text-align: center;
+    }
+    .table-box button {
+      background-color: #28a745;
+    }
+    .table-box button:hover {
+      background-color: #218838;
+    }
+    #tableOutput {
+      margin-top: 15px;
+      text-align: left;
+      display: inline-block;
+    }
+
+    /* Styles for digital clock box */
+    .clock-box {
+      text-align: center;
+    }
+    #clock {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    #toggleClock {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #toggleClock:hover {
+      background-color: #218838;
+    }
+
+    /* Styles for grade calculator box */
+    .grade-box {
+      text-align: center;
+    }
+    .grade-box input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+    .grade-box button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: auto;
+      margin: 0 auto;
+      display: block;
+    }
+    .grade-box button:hover {
+      background-color: #0056b3;
+    }
+    #gradeResult {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Styles for task manager */
+    .task-manager-box {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    #taskInput {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .task-manager-box button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .task-manager-box button:hover {
+      background: #218838;
+    }
+    #taskList {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    #taskList li {
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .delete-btn {
+      background: red;
+      padding: 5px 10px;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Styles for JavaScript Practice Dashboard */
+    .dashboard-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .dashboard-dark-mode {
+      background-color: #222;
+      color: #eee;
+    }
+    .dashboard-hidden {
+      display: none;
+    }
+
+    /* Styles for User Preferences */
+    .preferences-box {
+      transition: 0.3s ease;
+    }
+    .dark {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+    .preferences-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    .dark .preferences-container {
+      background: #2a2a2a;
+    }
+    .preferences-box label, .preferences-box select {
+      display: block;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    .preferences-box button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .preferences-box button:hover {
+      background: #0056b3;
+    }
+    #demoText {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 6px;
+      background: #e9ecef;
+    }
+
+    /* Styles for Daily Journal */
+    .journal-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .journal-box textarea {
+      width: 100%;
+      height: 120px;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    .journal-box button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .journal-box button:hover {
+      background-color: #0056b3;
+    }
+    .entry {
+      background: #f9f9f9;
+      margin-top: 20px;
+      padding: 15px;
+      border-left: 4px solid #007bff;
+      border-radius: 6px;
+    }
+    .entry time {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* Styles for Notes App */
+    .notes-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .notes-box textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    .notes-box button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: auto;
+    }
+    .notes-box #saveBtn {
+      background-color: #28a745;
+      color: white;
+    }
+    .notes-box #clearBtn {
+      background-color: #dc3545;
+      color: white;
+    }
+    .notes-box #displayNote {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9ecef;
+      border-left: 5px solid #007bff;
+    }
+
+    /* Styles for Welcome Back Section */
+    .welcome-box {
+      text-align: center;
+    }
+    #welcomeMessage {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    /* Styles for Event Handling Section */
+    .event-box {
+      text-align: center;
+    }
+    .event-box button.active {
+      background-color: #28a745;
+    }
+
+    /* Styles for Feedback Collector */
+    .feedback-section {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .feedback-section h2 {
+      text-align: center;
+      color: #333;
+    }
+    .feedback-section input, .feedback-section select, .feedback-section textarea, .feedback-section button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .feedback-section button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    .feedback-section button:hover {
+      background: #0056b3;
+    }
+    .feedback-card {
+      background: #f1f1f1;
+      padding: 15px;
+      margin-top: 15px;
+      border-left: 5px solid #007bff;
+      border-radius: 6px;
+    }
+
+    /* Styles for Color-Cycling Circle */
+    .circle-box {
+      text-align: center;
+    }
+    .circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: red;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      margin: 10px auto; /* Center the circle and add spacing */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Column -->
+    <div class="column">
+      <h1>LEFT COLUMN</h1>
+
+      <div class="box">
+        <strong>Function and Condition (Even/Odd)</strong><br>
+        <input type="number" id="num" placeholder="Enter a number">
+        <button onclick="checkEvenOdd()">Check Even/Odd</button>
+        <p id="result"></p>
+      </div>
+
+      <div class="box">
+        <strong>Loop Example (Countdown)</strong><br>
+        <button onclick="countDown()">Count Down from 5</button>
+        <ul id="countdownList"></ul>
+      </div>
+
+      <div class="box">
+        <strong>Registration Form</strong><br>
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Register</button>
+      </div>
+
+      <div class="box">
+        <strong>Quote Generator</strong><br>
+        <button onclick="getQuote()">Get Quote</button>
+        <p id="quote"></p>
+      </div>
+
+      <div class="box">
+        <strong>DOM Manipulation (Color Change)</strong><br>
+        <button onclick="changeColor()">Change Color</button>
+        <p id="colorText">Click the button to change my color.</p>
+      </div>
+
+      <!-- JavaScript Functions Section -->
+      <div class="box">
+        <strong>JavaScript Functions</strong><br>
+        <label for="num2">Enter a Number:</label>
+        <input type="number" id="num2" placeholder="Enter a number">
+
+        <button onclick="calculateSquare()">Find Square</button>
+        <button onclick="addNumbers()">Add Two Numbers</button>
+        <button onclick="checkEvenOdd2()">Check Even or Odd</button>
+
+        <p id="output"></p>
+      </div>
+
+      <!-- Simple Calculator Section -->
+      <div class="box calculator-box">
+        <h3>Simple Calculator</h3>
+        
+        <input type="number" id="calcNum1" placeholder="First number">
+        <input type="number" id="calcNum2" placeholder="Second number">
+        
+        <select id="calcOperation">
+          <option value="add">Add (+)</option>
+          <option value="subtract">Subtract (-)</option>
+          <option value="multiply">Multiply (×)</option>
+          <option value="divide">Divide (÷)</option>
+        </select>
+        
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="calculatorOutput"></div>
+      </div>
+
+      <!-- Light Bulb Toggle Section -->
+      <div class="box bulb-box">
+        <h3>Light Bulb Toggle 💡</h3>
+        
+        <img id="bulbImage" src="./Web Development Lab Project_files/pic_bulboff.gif" alt="Light Bulb">
+        
+        <button id="toggleButton">Turn ON</button>
+      </div>
+
+      <!-- Digital Clock Section -->
+      <div class="box clock-box">
+        <h3>Real-Time Digital Clock ⏰</h3>
+        
+        <div id="clock">00:00:00</div>
+        
+        <button id="toggleClock">Start Clock</button>
+      </div>
+
+      <!-- Task Manager Section -->
+      <div class="box task-manager-box">
+        <h3>📝 Task Manager</h3>
+        <div>
+          <input type="text" id="taskInput" placeholder="Enter your task here...">
+          <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList"></ul>
+      </div>
+
+      <!-- User Preferences Section -->
+      <div class="box preferences-box">
+        <h3>⚙️ User Preferences</h3>
+        <div class="preferences-container">
+          <label for="themeSelect">Select Theme:</label>
+          <select id="themeSelect">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+
+          <label for="fontSizeSelect">Select Font Size:</label>
+          <select id="fontSizeSelect">
+            <option value="16px">Small</option>
+            <option value="18px" selected="">Medium</option>
+            <option value="22px">Large</option>
+          </select>
+
+          <button onclick="savePreferences()">Save Preferences</button>
+
+          <div id="demoText" style="font-size: 18px;">This is a preview of your preferences in action.</div>
+        </div>
+      </div>
+
+      <!-- Daily Journal Section -->
+      <div class="box journal-box">
+        <h3>📓 Daily Journal</h3>
+        <textarea id="journalEntry" placeholder="Write something about your day..."></textarea>
+        <button onclick="saveEntry()">Save Entry</button>
+        <div id="entries"><p>No entries yet.</p></div>
+      </div>
+
+      <!-- Notes App Section -->
+      <div class="box notes-box">
+        <h3>📝 My Notes</h3>
+        <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+        <br>
+        <button id="saveBtn" onclick="saveNote()">Save Note</button>
+        <button id="clearBtn" onclick="clearNote()">Clear Note</button>
+        <div id="displayNote">No note saved yet.</div>
+      </div>
+
+      <!-- Event Handling Section -->
+      <div class="box event-box">
+        <h3>JavaScript Event Handling</h3>
+
+        <!-- Task 1: Button Click Event -->
+        <h4>Task 1: Click the Button to Change Color</h4>
+        <button id="colorButton">Click Me!</button>
+
+        <!-- Task 2: Keyboard Event -->
+        <h4>Task 2: Press Keys in the Input Field</h4>
+        <input type="text" id="keyLogger" placeholder="Type something...">
+        <p>Check the console for logged keys.</p>
+
+        <!-- Task 3: Form Submission Event -->
+        <h4>Task 3: Form Submission</h4>
+        <form id="myForm">
+          <input type="text" placeholder="Enter your name">
+          <button type="submit">Submit Form</button>
+        </form>
+      </div>
+
+      <!-- JavaScript Operators Activity Section -->
+      <div class="box">
+        <h3>JavaScript Operators Activity</h3>
+        <button onclick="performOperationsOperators()">Run Activity</button>
+        <div id="outputOperators"></div>
+      </div>
+
+      <!-- Color-Cycling Circle Section -->
+      <div class="box circle-box">
+        <h3>Color-Cycling Circle 🌈</h3>
+        <div class="circle" onclick="changeCircleColor(this)"></div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="column">
+      <h1>RIGHT COLUMN</h1>
+
+      <div class="box">
+        <strong>Interactive Registration Form</strong><br>
+        <input type="text" id="iname" placeholder="Name:">
+        <input type="email" id="iemail" placeholder="Email:">
+        <input type="password" id="ipass" placeholder="Password:">
+        <button onclick="register()">Register</button>
+        <p id="registerMsg"></p>
+      </div>
+
+      <div class="box">
+        <strong>Counter App</strong><br>
+        <p id="counter">0</p>
+        <button onclick="increase()">Increase</button>
+        <button onclick="decrease()">Decrease</button>
+        <button onclick="reset()">Reset</button>
+      </div>
+
+      <div class="box">
+        <strong>Show/Hide Password</strong><br>
+        <input type="password" id="pwd">
+        <button onclick="togglePassword()">Show/Hide</button>
+      </div>
+
+      <div class="box">
+        <strong>Dynamic Color Mixer 🎨</strong><br><br>
+
+        <label for="red">Red: <span id="redValue" class="color-value">0</span></label><br>
+        <input type="range" id="red" class="slider" min="0" max="255" value="0" oninput="updateColor()"><br>
+
+        <label for="green">Green: <span id="greenValue" class="color-value">0</span></label><br>
+        <input type="range" id="green" class="slider" min="0" max="255" value="0" oninput="updateColor()"><br>
+
+        <label for="blue">Blue: <span id="blueValue" class="color-value">0</span></label><br>
+        <input type="range" id="blue" class="slider" min="0" max="255" value="0" oninput="updateColor()"><br>
+
+        <div id="colorBox"></div>
+      </div>
+
+      <!-- User Profile Form Section -->
+      <div class="box profile-box">
+        <h3>User Profile Form</h3>
+        
+        <label for="profileName">Enter Your Name:</label>
+        <input type="text" id="profileName" placeholder="Your Name">
+        
+        <label for="profileAge">Enter Your Age:</label>
+        <input type="number" id="profileAge" placeholder="Your Age">
+        
+        <label for="profileIsStudent">Are you a student?</label>
+        <select id="profileIsStudent">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+        
+        <button onclick="displayProfile()">Submit</button>
+
+        <div id="profileOutput"></div>
+      </div>
+
+      <!-- Multiplication Table Generator Section -->
+      <div class="box table-box">
+        <h3>Multiplication Table Generator</h3>
+        <input type="number" id="tableNum" placeholder="Enter a number">
+        <button onclick="generateTable()">Generate Table</button>
+        <div id="tableOutput"></div>
+      </div>
+
+      <!-- Grade Calculator Section -->
+      <div class="box grade-box">
+        <h2>Simple Grade Calculator</h2>
+        <input type="number" id="marks" placeholder="Enter your marks (0-100)">
+        <button onclick="calculateGrade()">Check Grade</button>
+        <div id="gradeResult"></div>
+      </div>
+
+      <!-- JavaScript Practice Dashboard Section -->
+      <div class="box dashboard-section">
+        <h2>JavaScript Practice Dashboard</h2>
+
+        <!-- Variables and Data Types -->
+        <div class="dashboard-section">
+          <h3>Variables and Operations</h3>
+          <button onclick="showVariables()">Show Variables</button>
+          <p id="varOutput"></p>
+        </div>
+
+        <!-- Functions and Conditions -->
+        <div class="dashboard-section">
+          <h2>Function and Condition</h2>
+          <input type="number" id="numberInput" placeholder="Enter a number">
+          <button onclick="checkEvenOddDashboard()">Check Even/Odd</button>
+          <p id="conditionOutput"></p>
+        </div>
+
+        <!-- Loops -->
+        <div class="dashboard-section">
+          <h3>Loop Example</h3>
+          <button onclick="countDownDashboard()">Count Down from 5</button>
+          <p id="loopOutput"></p>
+        </div>
+
+        <!-- Form Validation -->
+        <div class="dashboard-section">
+          <h3>Form Validation</h3>
+          <form onsubmit="return validateForm()">
+            <input type="text" id="name" placeholder="Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <!-- Welcome Back (Session Storage) Section -->
+        <div class="dashboard-section welcome-box">
+          <h3>👋 Welcome Back (Session Storage)</h3>
+          <input type="text" id="userName" placeholder="Enter your name">
+          <br>
+          <button onclick="storeName()">Submit</button>
+          <div id="welcomeMessage"></div>
+        </div>
+
+        <!-- DOM Manipulation -->
+        <div class="dashboard-section">
+          <h3>DOM Manipulation</h3>
+          <h4 id="domHeading">Welcome!</h4>
+          <button onclick="changeHeading()">Change Heading</button>
+          <button onclick="addNewParagraph()">Add Paragraph</button>
+          <button onclick="toggleDark()">Toggle Dark Mode</button>
+          <div id="domContent"></div>
+        </div>
+
+        <!-- Simple Calculator Section -->
+        <div class="dashboard-section calculator-box">
+          <h3>Simple Calculator (Alternative)</h3>
+          
+          <input type="number" id="num1Alt" placeholder="Enter first number">
+          <input type="number" id="num2Alt" placeholder="Enter second number">
+          
+          <select id="operationAlt">
+            <option value="add">Add (+)</option>
+            <option value="subtract">Subtract (-)</option>
+            <option value="multiply">Multiply (×)</option>
+            <option value="divide">Divide (÷)</option>
+          </select>
+          
+          <button onclick="calculateAlt()">Calculate</button>
+
+          <div id="outputAlt"></div>
+        </div>
+
+        <!-- JavaScript Control Flow & Loops Section -->
+        <div class="dashboard-section">
+          <h3>JavaScript Control Flow &amp; Loops</h3>
+          
+          <label for="numberFlow">Enter a number:</label>
+          <input type="number" id="numberFlow" placeholder="Enter a number">
+          <button onclick="checkEvenOddFlow()">Check Even or Odd</button>
+          
+          <button onclick="printNumbersFlow()">Print 1 to 10</button>
+          <button onclick="countDownFlow()">Count Down 5 to 1</button>
+
+          <div id="outputFlow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Collector Section -->
+  <div class="feedback-section">
+    <h2>🌟 Leave Your Feedback</h2>
+    <input type="text" id="feedbackName" placeholder="Your Name">
+    <select id="feedbackRating">
+      <option value="">Rate us</option>
+      <option value="⭐">⭐</option>
+      <option value="⭐⭐">⭐⭐</option>
+      <option value="⭐⭐⭐">⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+    </select>
+    <textarea id="feedbackText" rows="4" placeholder="Your feedback..."></textarea>
+    <button onclick="submitFeedback()">Submit</button>
+
+    <div id="feedbackList"></div>
+  </div>
+
+  <script>
+    // Core Examples
+    function checkEvenOdd() {
+      const num = document.getElementById("num").value;
+      const result = (num % 2 === 0) ? "Even" : "Odd";
+      document.getElementById("result").textContent = result;
+    }
+
+    function countDown() {
+      const countdownList = document.getElementById("countdownList");
+      countdownList.innerHTML = "";
+      for (let i = 5; i >= 1; i--) {
+        const li = document.createElement("li");
+        li.textContent = i;
+        countdownList.appendChild(li);
+      }
+    }
+
+    function getQuote() {
+      const quotes = ["Stay curious!", "Code is poetry.", "Debug your life.", "Practice makes progress."];
+      const random = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").textContent = random;
+    }
+
+    function changeColor() {
+      const el = document.getElementById("colorText");
+      el.style.color = el.style.color === "red" ? "green" : "red";
+    }
+
+    function register() {
+      const name = document.getElementById("iname").value;
+      const email = document.getElementById("iemail").value;
+      const pass = document.getElementById("ipass").value;
+      if (name && email && pass) {
+        document.getElementById("registerMsg").textContent = "Registered successfully!";
+      } else {
+        document.getElementById("registerMsg").textContent = "Please fill all fields.";
+      }
+    }
+
+    let count = 0;
+    function increase() {
+      count++;
+      document.getElementById("counter").textContent = count;
+    }
+
+    function decrease() {
+      count--;
+      document.getElementById("counter").textContent = count;
+    }
+
+    function reset() {
+      count = 0;
+      document.getElementById("counter").textContent = count;
+    }
+
+    function togglePassword() {
+      const pwd = document.getElementById("pwd");
+      pwd.type = pwd.type === "password" ? "text" : "password";
+    }
+
+    function calculateSquare() {
+      let num = document.getElementById("num2").value;
+      let square = num * num;
+      document.getElementById("output").innerHTML = `Square of ${num} is ${square}`;
+    }
+
+    const add = (a, b) => a + b;
+
+    function addNumbers() {
+      let num1 = parseInt(prompt("Enter first number:"));
+      let num2 = parseInt(prompt("Enter second number:"));
+      let sum = add(num1, num2);
+      document.getElementById("output").innerHTML = `Sum of ${num1} and ${num2} is ${sum}`;
+    }
+
+    function checkEvenOdd2() {
+      let num = document.getElementById("num2").value;
+      let result = (num % 2 === 0) ? "Even" : "Odd";
+      document.getElementById("output").innerHTML = `${num} is ${result}`;
+    }
+
+    function updateColor() {
+      let red = document.getElementById("red").value;
+      let green = document.getElementById("green").value;
+      let blue = document.getElementById("blue").value;
+
+      document.getElementById("redValue").innerText = red;
+      document.getElementById("greenValue").innerText = green;
+      document.getElementById("blueValue").innerText = blue;
+
+      const rgbColor = `rgb(${red}, ${green}, ${blue})`;
+      document.getElementById("colorBox").style.backgroundColor = rgbColor;
+    }
+
+    // Calculator Functions (Left Column)
+    function calcAdd(a, b) {
+      return a + b;
+    }
+
+    const calcSubtract = function(a, b) {
+      return a - b;
+    };
+
+    const calcMultiply = (a, b) => a * b;
+
+    const calcDivide = (a, b) => b !== 0 ? (a / b).toFixed(2) : "Cannot divide by zero";
+
+    function calculate() {
+      let num1 = parseFloat(document.getElementById("calcNum1").value);
+      let num2 = parseFloat(document.getElementById("calcNum2").value);
+      let operation = document.getElementById("calcOperation").value;
+      let result;
+
+      switch(operation) {
+        case "add":
+          result = calcAdd(num1, num2);
+          break;
+        case "subtract":
+          result = calcSubtract(num1, num2);
+          break;
+        case "multiply":
+          result = calcMultiply(num1, num2);
+          break;
+        case "divide":
+          result = calcDivide(num1, num2);
+          break;
+        default:
+          result = "Invalid Operation";
+      }
+
+      document.getElementById("calculatorOutput").innerHTML = `Result: <strong>${result}</strong>`;
+    }
+
+    // Alternative Calculator Functions (Right Column)
+    function addAlt(a, b) {
+      return a + b;
+    }
+
+    const subtractAlt = function(a, b) {
+      return a - b;
+    };
+
+    const multiplyAlt = (a, b) => a * b;
+
+    const divideAlt = (a, b) => b !== 0 ? (a / b).toFixed(2) : "Cannot divide by zero";
+
+    function calculateAlt() {
+      let num1 = parseFloat(document.getElementById("num1Alt").value);
+      let num2 = parseFloat(document.getElementById("num2Alt").value);
+      let operation = document.getElementById("operationAlt").value;
+      let result;
+
+      switch(operation) {
+        case "add":
+          result = addAlt(num1, num2);
+          break;
+        case "subtract":
+          result = subtractAlt(num1, num2);
+          break;
+        case "multiply":
+          result = multiplyAlt(num1, num2);
+          break;
+        case "divide":
+          result = divideAlt(num1, num2);
+          break;
+        default:
+          result = "Invalid Operation";
+      }
+
+      document.getElementById("outputAlt").innerHTML = `Result: <strong>${result}</strong>`;
+    }
+
+    // JavaScript Control Flow & Loops Functions
+    function checkEvenOddFlow() {
+      let num = document.getElementById("numberFlow").value;
+      if (num % 2 === 0) {
+        document.getElementById("outputFlow").innerHTML = `${num} is Even.`;
+      } else {
+        document.getElementById("outputFlow").innerHTML = `${num} is Odd.`;
+      }
+    }
+
+    function printNumbersFlow() {
+      let output = "Numbers: ";
+      for (let i = 1; i <= 10; i++) {
+        output += i + " ";
+      }
+      document.getElementById("outputFlow").innerHTML = output;
+    }
+
+    function countDownFlow() {
+      let i = 5;
+      let output = "Countdown: ";
+      while (i >= 1) {
+        output += i + " ";
+        i--;
+      }
+      document.getElementById("outputFlow").innerHTML = output;
+    }
+
+    // JavaScript Operators Activity Function
+    function performOperationsOperators() {
+      let a = 8;
+      let b = 3;
+
+      let addition = a + b;
+      let subtraction = a - b;
+      let multiplication = a * b;
+      let division = a / b;
+      let modulus = a % b;
+
+      let isGreater = a > b;
+      let logicalCheck = (a > 5 && b < 10);
+
+      let outputText = `
+        <strong>Results:</strong><br>
+        Addition (a + b) = ${addition} <br>
+        Subtraction (a - b) = ${subtraction} <br>
+        Multiplication (a * b) = ${multiplication} <br>
+        Division (a / b) = ${division} <br>
+        Modulus (a % b) = ${modulus} <br><br>
+        Is 'a' greater than 'b'? ${isGreater} <br>
+        Logical AND (a > 5 && b < 10): ${logicalCheck}
+      `;
+
+      document.getElementById("outputOperators").innerHTML = outputText;
+    }
+
+    // Color-Cycling Circle Function
+    const circleColors = ['red', 'green', 'yellow', 'green', 'red'];
+    let circleIndex = 0;
+
+    function changeCircleColor(circle) {
+      circleIndex = (circleIndex + 1) % circleColors.length;
+      circle.style.backgroundColor = circleColors[circleIndex];
+    }
+
+    // User Profile Function
+    function displayProfile() {
+      let userName = document.getElementById("profileName").value;
+      let userAge = parseInt(document.getElementById("profileAge").value);
+      let isStudent = document.getElementById("profileIsStudent").value === "true";
+
+      document.getElementById("profileOutput").innerHTML = `
+          <p><strong>Name:</strong> ${userName}</p>
+          <p><strong>Age:</strong> ${userAge}</p>
+          <p><strong>Student Status:</strong> ${isStudent ? "Yes" : "No"}</p>
+      `;
+
+      console.log("Profile Name:", userName);
+      console.log("Profile Age:", userAge);
+      console.log("Is Student:", isStudent);
+    }
+
+    // Light Bulb Toggle Function
+    document.addEventListener('DOMContentLoaded', function() {
+      let bulbImage = document.getElementById("bulbImage");
+      let toggleButton = document.getElementById("toggleButton");
+
+      toggleButton.addEventListener("click", function() {
+        if (bulbImage.src.includes("pic_bulboff.gif")) {
+          bulbImage.src = "https://www.w3schools.com/js/pic_bulbon.gif";
+          toggleButton.textContent = "Turn OFF";
+        } else {
+          bulbImage.src = "https://www.w3schools.com/js/pic_bulboff.gif";
+          toggleButton.textContent = "Turn ON";
+        }
+      });
+
+      loadEntries(); // Load journal entries on page load
+      loadPreferences(); // Load preferences on page load
+      displayNote(); // Load saved note on page load
+
+      // Load name on page load for Welcome Back section
+      const name = sessionStorage.getItem("userName");
+      if (name) {
+        document.getElementById("welcomeMessage").innerText = `Welcome back, ${name}!`;
+        document.getElementById("userName").style.display = "none";
+      }
+
+      // Event Handling Setup
+      let colorButton = document.getElementById("colorButton");
+      colorButton.addEventListener("click", function() {
+        colorButton.classList.toggle("active");
+      });
+
+      let keyLogger = document.getElementById("keyLogger");
+      keyLogger.addEventListener("keydown", function(event) {
+        console.log("Key Pressed:", event.key);
+      });
+
+      let myForm = document.getElementById("myForm");
+      myForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        alert("Form submission prevented!");
+      });
+    });
+
+    // Multiplication Table Generator Function
+    function generateTable() {
+      let num = parseInt(document.getElementById("tableNum").value);
+      let output = `<strong>Multiplication Table for ${num}:</strong><br>`;
+      
+      for (let i = 1; i <= 10; i++) {
+        output += `${num} × ${i} = ${num * i}<br>`;
+      }
+
+      document.getElementById("tableOutput").innerHTML = output;
+    }
+
+    // Digital Clock Function
+    document.addEventListener('DOMContentLoaded', function() {
+      let clockInterval;
+      let isRunning = false;
+
+      function updateClock() {
+        let now = new Date();
+        let hours = String(now.getHours()).padStart(2, "0");
+        let minutes = String(now.getMinutes()).padStart(2, "0");
+        let seconds = String(now.getSeconds()).padStart(2, "0");
+        document.getElementById("clock").innerHTML = `${hours}:${minutes}:${seconds}`;
+      }
+
+      document.getElementById("toggleClock").addEventListener("click", function() {
+        if (!isRunning) {
+          clockInterval = setInterval(updateClock, 1000);
+          this.textContent = "Stop Clock";
+          updateClock(); // Update immediately when starting
+        } else {
+          clearInterval(clockInterval);
+          this.textContent = "Start Clock";
+        }
+        isRunning = !isRunning;
+      });
+    });
+
+    // Grade Calculator Function
+    function calculateGrade() {
+      let marks = document.getElementById("marks").value;
+      let grade;
+
+      if (marks >= 90) {
+        grade = "A+";
+      } else if (marks >= 80) {
+        grade = "A";
+      } else if (marks >= 70) {
+        grade = "B";
+      } else if (marks >= 60) {
+        grade = "C";
+      } else if (marks >= 50) {
+        grade = "D";
+      } else {
+        grade = "F (Fail)";
+      }
+
+      document.getElementById("gradeResult").innerHTML = `Your Grade: <strong>${grade}</strong>`;
+    }
+
+    // Task Manager Functions
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span onclick="toggleComplete(this)">${taskText}</span>
+        <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+      `;
+      document.getElementById("taskList").appendChild(li);
+      input.value = "";
+    }
+
+    function toggleComplete(element) {
+      element.classList.toggle("completed");
+    }
+
+    function deleteTask(button) {
+      button.parentElement.remove();
+    }
+
+    // JavaScript Practice Dashboard Functions
+    function showVariables() {
+      let name = "Student";
+      let num = 10;
+      let isLoggedIn = true;
+      document.getElementById("varOutput").innerText = 
+        `Name: ${name}, Number+10: ${num + 10}, Logged In: ${isLoggedIn}`;
+    }
+
+    function checkEvenOddDashboard() {
+      const number = document.getElementById("numberInput").value;
+      if (number === "") {
+        alert("Please enter a number");
+        return;
+      }
+      const message = number % 2 === 0 ? "Even" : "Odd";
+      document.getElementById("conditionOutput").innerText = `Number is ${message}`;
+    }
+
+    function countDownDashboard() {
+      let output = "";
+      let i = 5;
+      while (i >= 1) {
+        output += i + " ";
+        i--;
+      }
+      document.getElementById("loopOutput").innerText = output;
+    }
+
+    function validateForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!name || !email || !password) {
+        alert("Please fill all fields.");
+        return false;
+      }
+      alert("Form submitted successfully!");
+      return false; // Prevent actual submission for practice
+    }
+
+    function changeHeading() {
+      document.getElementById("domHeading").innerText = "JavaScript is Fun!";
+    }
+
+    function addNewParagraph() {
+      const p = document.createElement("p");
+      p.innerText = "This is a new paragraph!";
+      document.getElementById("domContent").appendChild(p);
+    }
+
+    function toggleDark() {
+      document.body.classList.toggle("dashboard-dark-mode");
+    }
+
+    // Welcome Back (Session Storage) Function
+    function storeName() {
+      const input = document.getElementById("userName");
+      const name = input.value.trim();
+      if (name === "") {
+        alert("Please enter your name.");
+        return;
+      }
+
+      sessionStorage.setItem("userName", name);
+      document.getElementById("welcomeMessage").innerText = `Welcome, ${name}!`;
+      input.style.display = "none";
+    }
+
+    // User Preferences Functions
+    function savePreferences() {
+      const theme = document.getElementById("themeSelect").value;
+      const fontSize = document.getElementById("fontSizeSelect").value;
+
+      localStorage.setItem("theme", theme);
+      localStorage.setItem("fontSize", fontSize);
+
+      applyPreferences(theme, fontSize);
+    }
+
+    function loadPreferences() {
+      const theme = localStorage.getItem("theme") || "light";
+      const fontSize = localStorage.getItem("fontSize") || "18px";
+
+      document.getElementById("themeSelect").value = theme;
+      document.getElementById("fontSizeSelect").value = fontSize;
+
+      applyPreferences(theme, fontSize);
+    }
+
+    function applyPreferences(theme, fontSize) {
+      const preferencesBox = document.querySelector(".preferences-box");
+      preferencesBox.className = "box preferences-box" + (theme === "dark" ? " dark" : "");
+      document.getElementById("demoText").style.fontSize = fontSize;
+    }
+
+    // Daily Journal Functions
+    function saveEntry() {
+      const text = document.getElementById("journalEntry").value.trim();
+      if (!text) {
+        alert("Please write something before saving.");
+        return;
+      }
+
+      const entry = {
+        content: text,
+        date: new Date().toLocaleString()
+      };
+
+      let journal = JSON.parse(localStorage.getItem("journal")) || [];
+      journal.unshift(entry); // Add to start
+      localStorage.setItem("journal", JSON.stringify(journal));
+      document.getElementById("journalEntry").value = "";
+      loadEntries();
+    }
+
+    function loadEntries() {
+      const journal = JSON.parse(localStorage.getItem("journal")) || [];
+      const container = document.getElementById("entries");
+      container.innerHTML = "";
+
+      if (journal.length === 0) {
+        container.innerHTML = "<p>No entries yet.</p>";
+        return;
+      }
+
+      journal.forEach(entry => {
+        container.innerHTML += `
+          <div class="entry">
+            <time>${entry.date}</time>
+            <p>${entry.content}</p>
+          </div>
+        `;
+      });
+    }
+
+    // Notes App Functions
+    function saveNote() {
+      const note = document.getElementById("noteInput").value;
+      localStorage.setItem("savedNote", note);
+      displayNote();
+    }
+
+    function clearNote() {
+      localStorage.removeItem("savedNote");
+      displayNote();
+    }
+
+    function displayNote() {
+      const saved = localStorage.getItem("savedNote");
+      const display = document.getElementById("displayNote");
+      if (saved && saved.trim() !== "") {
+        display.innerHTML = `<strong>Your Saved Note:</strong><br>${saved}`;
+      } else {
+        display.innerHTML = "No note saved yet.";
+      }
+    }
+
+    // Feedback Collector Function
+    function submitFeedback() {
+      const name = document.getElementById("feedbackName").value.trim();
+      const rating = document.getElementById("feedbackRating").value;
+      const feedback = document.getElementById("feedbackText").value.trim();
+
+      if (!name || !rating || !feedback) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const card = document.createElement("div");
+      card.className = "feedback-card";
+      card.innerHTML = `
+        <strong>${name}</strong> rated us ${rating}<br>
+        <p>${feedback}</p>
+      `;
+
+      document.getElementById("feedbackList").appendChild(card);
+
+      // Clear inputs
+      document.getElementById("feedbackName").value = "";
+      document.getElementById("feedbackRating").value = "";
+      document.getElementById("feedbackText").value = "";
+    }
+  </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>
